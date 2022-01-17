@@ -1,0 +1,1 @@
+// on the board when a ship is put in an index have that index contain both what part of the ship it is and the ship variable itself
