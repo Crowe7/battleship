@@ -4,7 +4,7 @@ interface ShipInterface {
     name: string,
 }
 class Gameboard {
-    board: any[] | Function
+    board: any | Function
     // takeAttack(location: number[]): boolean have this contain both hit and miss methods 
     ships: ShipInterface[] | Function
 
@@ -38,9 +38,27 @@ class Gameboard {
         ships.push(PatrolBoat);
 
         return ships
-
     }
 
+    takeAttack(location: number) {
+        if(this.board[location] === '') {
+            this.board[location] = 'miss';
+            return this.board[location]
+        }
+        else {
+            if(this.#checkValidHit(location) === true) {
+                
+            }
+            else {
+                return 'invalid attack'
+            }
+        }
+    }
+    #checkValidHit(location: number) {
+        if(typeof this.board[location] !== 'object') {
+            return false
+        }
+    }
 }
 // on the board when a ship is put in an index have that index contain both what part of the ship it is and the ship variable itself
 /* checkIfIndexIsEmpty(index: number): boolean {
