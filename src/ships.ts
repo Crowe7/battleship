@@ -3,9 +3,7 @@ interface ShipInterface {
      hit: number[],
      name?: string // thats for optional
      isSunk(): boolean
-
-
- 
+     hitShip(index: number): number[] 
  }
 
  class Ship implements ShipInterface {
