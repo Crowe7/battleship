@@ -30,7 +30,7 @@ describe('Ship', () => {
 
     test('cant hit same spot', () => {
         ship.hit = [1];
-        expect(ship.hitShip(1)).toBe(false);
+        expect(ship.hitShip(1)).toEqual([1]);
     });
 
     test('sinks when all parts are hit', () => {

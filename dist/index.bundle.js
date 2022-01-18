@@ -41,7 +41,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "log": () => (/* binding */ log)
 /* harmony export */ });
-var message = 'Hello World';
+let message = 'Hello World';
 function log(message) {
     console.log(message);
     return message;

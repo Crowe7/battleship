@@ -20,14 +20,28 @@ interface ShipInterface {
      }
 
      isSunk() {
-         return false;
+         if(this.hit.length === this.length) {
+             return true
+         }
+         else {
+             return false
+         }
      }
 
      hitShip(index: number) {
-         // TODO MAKE SURE THAT IT CANT HIT SAME SPOT TWICE AND CANT TAKE A NUMBER LARGER THAN THE SHIP ITSELF??
+         if(this.#checkForValidHit(index) === false ) {
+             return this.hit
+         } 
          this.hit.push(index);
          return this.hit
      }
-
+     #checkForValidHit(index: number) {
+        for(let i = 0; i < this.hit.length; i++) {
+            if(index === this.hit[i]) {
+                return false
+            }
+        }
+        return true
+     }
  }
  export default Ship
