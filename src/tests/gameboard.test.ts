@@ -10,4 +10,9 @@ describe('Gameboard', () => {
     test('makes board', () => {
         expect(gameboard.board.length).toBe(100);
     });
+
+    test('has each boat', () => {
+        expect(gameboard.ships.length).toBe(5);
+        
+    });
 });
