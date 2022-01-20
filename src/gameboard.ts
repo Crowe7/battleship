@@ -41,11 +41,19 @@ class Gameboard {
         return ships
     }
     placeShip(location: number[], ship: ShipInterface) {
-        //maybe check if each area is valid in a serperate function, and if it is add them to the array after each spot is checked
-        // check that lengths are the same so it is valid!
+        if(this.#checkValidPLacement(location, ship) !== true) {
+            throw new Error('Invalid Placement!');
+        }
+
         for(let i = 0; i < ship.length; i++) {
             this.board[location[i]] = {Ship: ship, position: i+1, isSpotHit: false,};
         }
+    }
+    #checkValidPLacement(location: number[], ship: ShipInterface) {
+        if(ship.length !== location.length) {
+            return false
+        }
+        return true;
     }
     takeAttack(location: number) {
         if(this.board[location] === '') {
