@@ -20,7 +20,14 @@ describe('Gameboard', () => {
         expect(gameboard.takeAttack(0)).toEqual('miss');
     });
 
-    test('doesnt allow same shot twice', () => {
+    test('doesnt allow same shot twice on empty spot', () => {
+        gameboard.takeAttack(0);
+        expect(gameboard.takeAttack(0)).toEqual('invalid attack');
+    });
+
+    test('doesnt allow ship to be shot in same spot', () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
         expect(gameboard.takeAttack(0)).toEqual('invalid attack');
     });
@@ -48,19 +55,27 @@ describe('Gameboard', () => {
         expect(gameboard.board[0]).toEqual({Ship: ship, isSpotHit: true, position: 1})
     });
     
-    test('shit can take a hit', () => {
+    test('ship can take a hit', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
         expect(gameboard.board[0].Ship.hit).toEqual([1]);
     });
 
-    test('shit can take multiple hits', () => {
+    test('ship can take multiple hits', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
         gameboard.takeAttack(1)
         expect(gameboard.board[1].Ship.hit).toEqual([1,2]);
+    });
+
+    test('hit can sink ship', () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,1], ship);
+        gameboard.takeAttack(0);
+        gameboard.takeAttack(1)
+        expect(gameboard.shipsLeft).toBe(4);
     });
     // for testing random number placement. just test that the random numbers that it wouod put out all would align properly on the grid ie [1,2,3] not [9,10,11]
     // pass in ships length for that

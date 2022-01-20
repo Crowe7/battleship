@@ -2,6 +2,7 @@ import Ship from "./ships";
 interface ShipInterface {
     length: number,
     name: string,
+    isSunk(): boolean,
 }
 class Gameboard {
     board: any | Function
@@ -22,6 +23,7 @@ class Gameboard {
                 board.push('');
             }
         }
+
         return board
     }
     #makeShips():ShipInterface[] {
@@ -37,7 +39,6 @@ class Gameboard {
         ships.push(Submarine)
         let PatrolBoat = new Ship(2, 'Patrol Boat');
         ships.push(PatrolBoat);
-
         return ships
     }
     placeShip(location: number[], ship: ShipInterface) {
@@ -64,19 +65,30 @@ class Gameboard {
             if(this.#checkValidHit(location) === true) {
 
                 this.board[location].isSpotHit = true;
-                this.board[location].Ship.hitShip(this.board[location].position);
+                this.board[location].Ship.hitShip(this.board[location].position);   
+                this.#updateBoatCounterWhenSunk(this.board[location].Ship);
             }
             else {
-                return 'invalid attack'
+                return 'invalid attack' // maybe make this throw an error instead
             }
         }
     }
+
     #checkValidHit(location: number): boolean {
         if(typeof this.board[location] !== 'object') {
             return false
         }
         else {
-            return true 
+            if(this.board[location].isSpotHit === true) {
+                return false
+            }
+        }
+        return true
+    }
+
+    #updateBoatCounterWhenSunk(boat: ShipInterface) {
+        if(boat.isSunk() === true) {
+            this.shipsLeft = this.shipsLeft - 1;
         }
     }
 }
