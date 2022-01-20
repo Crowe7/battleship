@@ -62,7 +62,9 @@ class Gameboard {
         }
         else {
             if(this.#checkValidHit(location) === true) {
-                
+
+                this.board[location].isSpotHit = true;
+                this.board[location].Ship.hitShip(this.board[location].position);
             }
             else {
                 return 'invalid attack'
