@@ -51,8 +51,13 @@ class Gameboard {
         }
     }
     #checkValidPLacement(location: number[], ship: ShipInterface) {
-        if(ship.length !== location.length) {
-            return false
+        if(ship.length !== location.length ) {
+            return false // NEEDS FULLY IMPLEMENTED
+        }
+        for(let i = 0; i < location.length; i++) { // checks if another ship is in the spot
+            if(this.board[location[i]] !== '') {
+                return false
+            }
         }
         return true;
     }
