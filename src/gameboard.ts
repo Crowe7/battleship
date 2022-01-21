@@ -96,7 +96,51 @@ class Gameboard {
             this.shipsLeft = this.shipsLeft - 1;
         }
     }
+
+    returnValidRandomCords(length: number, orientation: string) {
+        if(orientation === 'random') {
+            orientation = this.#generateRandomOrientation();
+        }
+        if(orientation === 'horizontal') {
+            let HorizontalCords = this.#generateLegalHorizontalCords(length);
+            return HorizontalCords;
+        }
+
+        //TODO ADD VALID VERTICAL CORDS
+
+    }
+
+    #generateRandomOrientation() {
+        let orientation: number = Math.floor(Math.random() * 2);
+
+        if(orientation === 0) {
+            return 'vertical'
+        }
+        else if(orientation === 1) {
+            return 'hoirzontal'
+        }
+    }
+    
+    #generateLegalHorizontalCords(length: number) {
+        let cords: number[] = [];
+        let randomVertical: number = Math.floor(Math.random() * 10) * 10; 
+        let randomHorizontal: number = Math.floor(Math.random() * 10);
+        if(randomHorizontal + length > 9) {
+            randomHorizontal = randomHorizontal - length;
+        }
+        let randomFinal: number = randomVertical + randomHorizontal;
+        for(let i = 0; i < length; i++) {
+            cords.push(randomFinal + i);
+        }
+        console.log(cords);
+        return cords
+    }
 }
+
+// TODO MAKE PLACE SHIP AT RANDOM FUNCTION THAT RECUSEVELY CALLS ITSELF IF placeShip THROWS!
+
+
+
 // on the board when a ship is put in an index have that index contain both what part of the ship it is and the ship variable itself
 /* checkIfIndexIsEmpty(index: number): boolean {
         for

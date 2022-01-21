@@ -38,6 +38,12 @@ describe('Gameboard', () => {
         expect(gameboard.board.filter((index: string) => index !== '')). toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
     });
 
+    test('can place ship vertically', () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,10], ship);
+        expect(gameboard.board[10]).toEqual({Ship: ship, isSpotHit: false, position: 2});
+    });
+
     test('doesnt allow ship to be placed on another ship', () => {
         let ship = new Ship(2, 'sub');
         let ship2 = new Ship(3, 'boat');
@@ -96,6 +102,29 @@ describe('Gameboard', () => {
         gameboard.takeAttack(4);
         expect(gameboard.shipsLeft).toBe(3);
     });
+    
+    test('randomly generates correct number of indexes', () => {
+        let ship = new Ship(2, 'sub');
+        expect(gameboard.returnValidRandomCords(ship.length, 'horizontal').length).toBe(2);
+    });
+
+    test('random horizontal cords are valid' , () => { //checks that the first diget in each number in array matches
+        let ship = new Ship(2, 'sub');
+        function getFirstNumbers(array: number[]) {
+            let firstNumberArray: number[] = []
+            for(let i = 0; i < array.length; i++) {
+                let stringifiedNum: string = array[i].toString();
+                let firstNum = parseInt(stringifiedNum.charAt(0));
+                if(firstNum !== firstNumberArray[0]) {
+                    firstNumberArray.push(firstNum);
+                }
+            }
+            console.log(firstNumberArray);
+            return firstNumberArray
+        }
+        expect(getFirstNumbers(gameboard.returnValidRandomCords(ship.length, 'horizontal')).length).toBe(1);
+    });
+    test
     // for testing random number placement. just test that the random numbers that it wouod put out all would align properly on the grid ie [1,2,3] not [9,10,11]
     // pass in ships length for that
     // test placing od ships by feeding the place ship function specified cordiantes and the ship in question and make sure that the output indexes match what they should be
