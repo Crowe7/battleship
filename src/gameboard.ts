@@ -98,14 +98,17 @@ class Gameboard {
     }
 
     returnValidRandomCords(length: number, orientation: string) {
-        if(orientation === 'random') {
+        if(orientation === 'random') { // THIS WORKS!
             orientation = this.#generateRandomOrientation();
         }
         if(orientation === 'horizontal') {
-            let HorizontalCords = this.#generateLegalHorizontalCords(length);
-            return HorizontalCords;
+            let horizontalCords = this.#generateLegalHorizontalCords(length);
+            return horizontalCords;
         }
-
+        if(orientation === 'vertical') {
+            let verticalCords = this.#generateLegalVerticalCords(length);
+            return verticalCords;
+        }
         //TODO ADD VALID VERTICAL CORDS
 
     }
@@ -117,7 +120,7 @@ class Gameboard {
             return 'vertical'
         }
         else if(orientation === 1) {
-            return 'hoirzontal'
+            return 'horizontal'
         }
     }
     
@@ -132,7 +135,22 @@ class Gameboard {
         for(let i = 0; i < length; i++) {
             cords.push(randomFinal + i);
         }
-        console.log(cords);
+        return cords
+    }
+
+    #generateLegalVerticalCords(length: number) {
+        let cords: number[] = [];
+        let randomVertical: number = Math.floor(Math.random() * 10); 
+        let randomHorizontal: number = Math.floor(Math.random() * 10);
+        if(randomVertical + length > 9) {
+            randomVertical = randomVertical - length;
+        }
+        randomVertical = randomVertical * 10;
+        let randomFinal: number = randomVertical + randomHorizontal;
+        for(let i = 0; i < length; i++) {
+            cords.push(randomFinal);
+            randomFinal = randomFinal + 10; // adds to to the number to simukate moving down a row in the grid
+        }
         return cords
     }
 }

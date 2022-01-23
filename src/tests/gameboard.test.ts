@@ -105,13 +105,52 @@ describe('Gameboard', () => {
     
     test('randomly generates correct number of indexes', () => {
         let ship = new Ship(2, 'sub');
+        expect(gameboard.returnValidRandomCords(ship.length, 'random').length).toBe(2);
+    });
+
+    test('randomly generates correct number of indexes horizontally', () => {
+        let ship = new Ship(2, 'sub');
         expect(gameboard.returnValidRandomCords(ship.length, 'horizontal').length).toBe(2);
+    });
+
+    test('randomly generates correct number of indexes vertically', () => {
+        let ship = new Ship(2, 'sub');
+        expect(gameboard.returnValidRandomCords(ship.length, 'vertical').length).toBe(2);
+    });
+
+    test('random vertical cords are valid' , () => { //checks that the first didget in each number in array matches
+        let ship = new Ship(2, 'sub');
+        function getFirstNumbers(array: number[]) {
+            let firstNumberArray: number[] = [] // up until the for loop pushes the first number on
+            let stringifiedNum: string = array[0].toString();
+            let firstNum = parseInt(stringifiedNum.charAt(0));
+            if(array[0].toString().length === 1) {
+                firstNumberArray.push(0);
+            }
+            else{
+                firstNumberArray.push(firstNum);
+            }
+            for(let i = 0; i < array.length; i++) {
+                stringifiedNum = array[i].toString();
+                firstNum = parseInt(stringifiedNum.charAt(0));
+
+                if(firstNum === firstNumberArray[i - 1] + 1) {
+                    firstNumberArray.push(firstNum);
+                }
+            }
+            return firstNumberArray
+        }
+        expect(getFirstNumbers(gameboard.returnValidRandomCords(ship.length, 'vertical')).length).toBe(2);
     });
 
     test('random horizontal cords are valid' , () => { //checks that the first diget in each number in array matches
         let ship = new Ship(2, 'sub');
         function getFirstNumbers(array: number[]) {
             let firstNumberArray: number[] = []
+            if(array[0] < 10 && array[1] < 10) {
+                firstNumberArray.push(0);
+                return firstNumberArray;
+            }
             for(let i = 0; i < array.length; i++) {
                 let stringifiedNum: string = array[i].toString();
                 let firstNum = parseInt(stringifiedNum.charAt(0));
@@ -119,7 +158,6 @@ describe('Gameboard', () => {
                     firstNumberArray.push(firstNum);
                 }
             }
-            console.log(firstNumberArray);
             return firstNumberArray
         }
         expect(getFirstNumbers(gameboard.returnValidRandomCords(ship.length, 'horizontal')).length).toBe(1);

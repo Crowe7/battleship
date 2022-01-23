@@ -37,4 +37,5 @@ describe('Ship', () => {
         ship.hit = [1,2];
         expect(ship.isSunk()).toBe(true);
     });
+    
 });
