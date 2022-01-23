@@ -153,6 +153,14 @@ class Gameboard {
         }
         return cords
     }
+
+    placeShipRandomly(ship: ShipInterface) {
+        try {
+            this.placeShip(this.returnValidRandomCords(ship.length, 'random'), ship);
+        } catch(error) {
+            this.placeShipRandomly(ship)
+        }
+    }
 }
 
 // TODO MAKE PLACE SHIP AT RANDOM FUNCTION THAT RECUSEVELY CALLS ITSELF IF placeShip THROWS!

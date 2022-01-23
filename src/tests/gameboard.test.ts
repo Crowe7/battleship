@@ -162,6 +162,23 @@ describe('Gameboard', () => {
         }
         expect(getFirstNumbers(gameboard.returnValidRandomCords(ship.length, 'horizontal')).length).toBe(1);
     });
+
+    test('can place ship randomly' , () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShipRandomly(ship);
+        console.log(gameboard.board);
+        expect(gameboard.board.filter((index: string) => index !== '')). toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
+    });
+
+    test('can place many ships randomly', () => {
+        for(let i = 0; i <  5; i++) {
+            let ship = new Ship(i + 1, 'sub');
+            gameboard.placeShipRandomly(ship);
+        }
+        let newBoard = gameboard.board.filter((index: string) => index !== '');
+        console.log(gameboard.board);
+        expect(newBoard.length).toBe(15);
+    });
     test
     // for testing random number placement. just test that the random numbers that it wouod put out all would align properly on the grid ie [1,2,3] not [9,10,11]
     // pass in ships length for that
