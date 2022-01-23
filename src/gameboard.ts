@@ -5,8 +5,7 @@ interface ShipInterface {
     isSunk(): boolean,
 }
 class Gameboard {
-    board: any
-    // takeAttack(location: number[]): boolean have this contain both hit and miss methods 
+    board: any // index signiture stuff im not sure how to type it :(
     ships: ShipInterface[]
     shipsLeft: number
 
@@ -102,11 +101,11 @@ class Gameboard {
             orientation = this.#generateRandomOrientation();
         }
         if(orientation === 'horizontal') {
-            let horizontalCords = this.#generateLegalHorizontalCords(length);
+            let horizontalCords: number[] = this.#generateLegalHorizontalCords(length);
             return horizontalCords;
         }
         if(orientation === 'vertical') {
-            let verticalCords = this.#generateLegalVerticalCords(length);
+            let verticalCords: number[] = this.#generateLegalVerticalCords(length);
             return verticalCords;
         }
         //TODO ADD VALID VERTICAL CORDS
