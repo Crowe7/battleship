@@ -22,14 +22,14 @@ describe('Gameboard', () => {
 
     test('doesnt allow same shot twice on empty spot', () => {
         gameboard.takeAttack(0);
-        expect(gameboard.takeAttack(0)).toEqual('invalid attack');
+        expect( () => {gameboard.takeAttack(0)}).toThrow(Error);
     });
 
     test('doesnt allow ship to be shot in same spot', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
-        expect(gameboard.takeAttack(0)).toEqual('invalid attack');
+        expect( () => {gameboard.takeAttack(0)}).toThrow(Error);
     });
 
     test('can place ship in empty spot', () => {
@@ -181,7 +181,6 @@ describe('Gameboard', () => {
     test('can place all board ships randomly', () => {
         gameboard.placeAllShipsRandomly();
         let newBoard = gameboard.board.filter((index: string) => index !== '');
-        console.log(gameboard.board);
         expect(newBoard.length).toBe(17);
     });
     test

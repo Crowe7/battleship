@@ -5,7 +5,7 @@ interface ShipInterface {
     isSunk(): boolean,
 }
 class Gameboard {
-    board: any // index signiture stuff im not sure how to type it :(
+    board: any // index signiture stuff im not sure how to type it but it has something to do with the objects inside of it :(
     ships: ShipInterface[]
     shipsLeft: number
 
@@ -14,6 +14,10 @@ class Gameboard {
         this.ships = this.#makeShips();
         this.shipsLeft = 5
 
+    }
+    e() {
+        let i = 0
+        this.board[i]
     }
     #makeBoard(): string[] {
         let board: string[] = []
@@ -73,7 +77,7 @@ class Gameboard {
                 this.#updateBoatCounterWhenSunk(this.board[location].Ship);
             }
             else {
-                return 'invalid attack' // maybe make this throw an error instead
+                throw new Error ('invalid attack'); // maybe make this throw an error instead
             }
         }
     }
@@ -95,7 +99,6 @@ class Gameboard {
             this.shipsLeft = this.shipsLeft - 1;
         }
     }
-
     returnValidRandomCords(length: number, orientation: string) {
         if(orientation === 'random') { // THIS WORKS!
             orientation = this.#generateRandomOrientation();
