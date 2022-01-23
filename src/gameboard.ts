@@ -7,7 +7,7 @@ interface ShipInterface {
 class Gameboard {
     board: any | Function
     // takeAttack(location: number[]): boolean have this contain both hit and miss methods 
-    ships: ShipInterface[] | Function
+    ships: any
     shipsLeft: number
 
     constructor() {
@@ -159,6 +159,12 @@ class Gameboard {
             this.placeShip(this.returnValidRandomCords(ship.length, 'random'), ship);
         } catch(error) {
             this.placeShipRandomly(ship)
+        }
+    }
+
+    placeAllShipsRandomly() {
+        for(let i = 0; i < 5; i++) {
+            this.placeShipRandomly(this.ships[i])
         }
     }
 }
