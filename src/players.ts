@@ -14,6 +14,15 @@ class Player {
             throw new Error (error);
         }
     }
+
+    randomAttack(gameboard: Gameboard) {
+        let location = Math.floor(Math.random() * 100);
+        try {
+            gameboard.takeAttack(location) 
+        } catch(error) {
+            throw new Error (error)
+        }
+    }
 }
 
 export default Player

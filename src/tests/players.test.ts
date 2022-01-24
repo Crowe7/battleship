@@ -24,4 +24,9 @@ describe('Player Setup', () => {
         Person.attackOpponent(0, gameboardCPU);
         expect( () => {Person.attackOpponent(0, gameboardCPU)}).toThrow(Error);
     });
+
+    test('can attack at random', () => {
+        Person.randomAttack(gameboardCPU);
+        expect(gameboardCPU.board.filter((index: string) => index !== '').length).toBe(1);
+    });
 });
