@@ -102,6 +102,17 @@ describe('Gameboard', () => {
         gameboard.takeAttack(4);
         expect(gameboard.shipsLeft).toBe(3);
     });
+
+    test('can report when all ships sunk', () => {
+        gameboard.shipsLeft = 1;
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,1], ship);
+        gameboard.takeAttack(0);
+        gameboard.takeAttack(1);
+        expect(gameboard.checkForWin()).toEqual(true);
+
+
+    });
     
     test('randomly generates correct number of indexes', () => {
         let ship = new Ship(2, 'sub');

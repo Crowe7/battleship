@@ -7,17 +7,13 @@ interface ShipInterface {
 class Gameboard {
     board: any // index signiture stuff im not sure how to type it but it has something to do with the objects inside of it :(
     ships: ShipInterface[]
-    shipsLeft: number
+   private shipsLeft: number
 
     constructor() {
         this.board = this.#makeBoard();
         this.ships = this.#makeShips();
-        this.shipsLeft = 5
+        this.shipsLeft = 5 // could probablt do this better with getters and setters maybe?
 
-    }
-    e() {
-        let i = 0
-        this.board[i]
     }
     #makeBoard(): string[] {
         let board: string[] = []
@@ -55,7 +51,7 @@ class Gameboard {
     }
     #checkValidPLacement(location: number[], ship: ShipInterface) {
         if(ship.length !== location.length ) {
-            return false // NEEDS FULLY IMPLEMENTED
+            return false
         }
         for(let i = 0; i < location.length; i++) { // checks if another ship is in the spot
             if(this.board[location[i]] !== '') {
@@ -71,13 +67,12 @@ class Gameboard {
         }
         else {
             if(this.#checkValidHit(location) === true) {
-
                 this.board[location].isSpotHit = true;
                 this.board[location].Ship.hitShip(this.board[location].position);   
                 this.#updateBoatCounterWhenSunk(this.board[location].Ship);
             }
             else {
-                throw new Error ('invalid attack'); // maybe make this throw an error instead
+                throw new Error ('invalid attack');
             }
         }
     }
@@ -94,13 +89,21 @@ class Gameboard {
         return true
     }
 
-    #updateBoatCounterWhenSunk(boat: ShipInterface) {
+    #updateBoatCounterWhenSunk(boat: ShipInterface) : boolean {
         if(boat.isSunk() === true) {
             this.shipsLeft = this.shipsLeft - 1;
+            return true
         }
     }
+
+    checkForWin(): boolean {
+        if(this.shipsLeft === 0) {
+            return true
+        }
+        return false
+    }
     returnValidRandomCords(length: number, orientation: string) {
-        if(orientation === 'random') { // THIS WORKS!
+        if(orientation === 'random') {
             orientation = this.#generateRandomOrientation();
         }
         if(orientation === 'horizontal') {
@@ -111,8 +114,6 @@ class Gameboard {
             let verticalCords: number[] = this.#generateLegalVerticalCords(length);
             return verticalCords;
         }
-        //TODO ADD VALID VERTICAL CORDS
-
     }
 
     #generateRandomOrientation() {
@@ -151,7 +152,7 @@ class Gameboard {
         let randomFinal: number = randomVertical + randomHorizontal;
         for(let i = 0; i < length; i++) {
             cords.push(randomFinal);
-            randomFinal = randomFinal + 10; // adds to to the number to simukate moving down a row in the grid
+            randomFinal = randomFinal + 10; // adds to to the number to simulate moving down a row in the grid
         }
         return cords
     }
@@ -171,37 +172,5 @@ class Gameboard {
         }
     }
 }
-
-// TODO MAKE PLACE SHIP AT RANDOM FUNCTION THAT RECUSEVELY CALLS ITSELF IF placeShip THROWS!
-
-
-
-// on the board when a ship is put in an index have that index contain both what part of the ship it is and the ship variable itself
-/* checkIfIndexIsEmpty(index: number): boolean {
-        for
-} */
-// have a math .random that determines random ships placement orientation 
-// maybe make a helper method that takes the indexes and spits out a bool on weather its allowed or not??
-// for rows if the random generated ends in 10 minus ship length or less let it go through and append the ship so it doesnt go over the line
-// ^ also add that number onto a another number genetated by 1-9 * 10 to get a random row that is placed on
-//when generating a number generate 0-9, if that number plus ship length would be over 9 subtract ship length from the number then send it, otherwise just send it anyways
-// for columns set it to random generate any number from 10 minus ship length (check if that works for placing on last cords) times 10 ()..math.rnadom times 10?) and below and append ship down 10 at a time
-// ^ also add a number generated 1-9 to that number to get a random row placemnet
-// also run a function inside of it, that checks all the indexes and return a bool if all are clear (ie no ship in the way) or not then push the ship object and what part it is into the cords
-// add a isHit property to the space to disallow the same spot to be hit twice
-// when a ship returns true from is sunk on it subtract that nunber from ships left on board
-// place ship function takes cords and ship and places ship in the cords, from left to right incrementing what part is is by one for each placed
-// make random ship place function call on that and feed it random cordenates it generates
-// when interacting with the dom check how many cords are being passes into shipPlace method and compare it with ship length, if it isnt equal throw an error
-
-// this is what places ship randomly
-/* 
-    for(let i = 0 i < this.ships.length; i++) {
-        
-        randomShipPlace(genetrateRandomCords(), this.ships[i]); this calls itself recursevly if cords are bad inside and keeps trying till it can place ship
-    }
-*/
-
-// TODO FIGURE OUT HOW TO PLACE EACH OT THE SHIPS IN THE GAMEBOARD SEPERATLELY... maybe add a placed variable inside of the ship?
 
 export default Gameboard
