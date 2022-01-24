@@ -110,8 +110,6 @@ describe('Gameboard', () => {
         gameboard.takeAttack(0);
         gameboard.takeAttack(1);
         expect(gameboard.checkForWin()).toEqual(true);
-
-
     });
     
     test('randomly generates correct number of indexes', () => {
