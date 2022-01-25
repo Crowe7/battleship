@@ -1,3 +1,4 @@
+import { getNameOfJSDocTypedef } from "typescript";
 import Gameboard from "../gameboard";
 import Ship from "../ships"
 
@@ -35,7 +36,13 @@ describe('Gameboard', () => {
     test('can place ship in empty spot', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
-        expect(gameboard.board.filter((index: string) => index !== '')). toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
+        expect(gameboard.board.filter((index: string) => index !== '')).toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
+    });
+
+    test('placing ship updates how many are on board', () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,1], ship);
+        expect(gameboard.shipsOnBoard).toBe(1);
     });
 
     test('can place ship vertically', () => {
