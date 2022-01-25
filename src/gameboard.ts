@@ -7,14 +7,12 @@ interface ShipInterface {
 class Gameboard {
     board: any // index signiture stuff im not sure how to type it but it has something to do with the objects inside of it :(
     ships: ShipInterface[]
-    shipsOnBoard: number
-   private shipsLeft: number
+    shipsLeft: number
 
     constructor() {
         this.board = this.#makeBoard();
         this.ships = this.#makeShips();
-        this.shipsLeft = 5 // could probablt do this better with getters and setters maybe?
-        this.shipsOnBoard = 0
+        this.shipsLeft = 0 // 
 
     }
     #makeBoard(): string[] {
@@ -50,7 +48,7 @@ class Gameboard {
         for(let i = 0; i < ship.length; i++) {
             this.board[location[i]] = {Ship: ship, position: i+1, isSpotHit: false,};
         }
-        this.shipsOnBoard = this.shipsOnBoard + 1;
+        this.shipsLeft = this.shipsLeft + 1;
     }
     #checkValidPLacement(location: number[], ship: ShipInterface) {
         if(ship.length !== location.length ) {
@@ -163,6 +161,7 @@ class Gameboard {
     placeShipRandomly(ship: ShipInterface) {
         try {
             this.placeShip(this.returnValidRandomCords(ship.length, 'random'), ship);
+
         } catch(error) {
             this.placeShipRandomly(ship)
         }

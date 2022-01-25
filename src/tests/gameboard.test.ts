@@ -42,7 +42,7 @@ describe('Gameboard', () => {
     test('placing ship updates how many are on board', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
-        expect(gameboard.shipsOnBoard).toBe(1);
+        expect(gameboard.shipsLeft).toBe(1);
     });
 
     test('can place ship vertically', () => {
@@ -94,7 +94,7 @@ describe('Gameboard', () => {
         gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
         gameboard.takeAttack(1)
-        expect(gameboard.shipsLeft).toBe(4);
+        expect(gameboard.shipsLeft).toBe(0);
     });
 
     test('updates correct number of sunk ships', () => {
@@ -107,11 +107,10 @@ describe('Gameboard', () => {
         gameboard.takeAttack(2);
         gameboard.takeAttack(3);
         gameboard.takeAttack(4);
-        expect(gameboard.shipsLeft).toBe(3);
+        expect(gameboard.shipsLeft).toBe(0);
     });
 
     test('can report when all ships sunk', () => {
-        gameboard.shipsLeft = 1;
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
         gameboard.takeAttack(0);
