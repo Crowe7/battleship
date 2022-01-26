@@ -1,5 +1,6 @@
-import {Computer, Human, endGame} from "../game";
+import {Computer, Human, endGame, attack, returnWhoseTurn} from "../game";
 import Gameboard from "../gameboard";
+
 
 beforeEach( () => {
     Human.board = new Gameboard
@@ -23,6 +24,14 @@ test('computer trys attacking until an attack lands', () => {
     }
     Computer.cpuAttack();
     expect(Human.board.board.filter((index: string) => index != 'miss')).toEqual([]);
+});
+
+test('computer attacks after player', () => {
+    attack(0);
+    if(returnWhoseTurn() === 2) {
+        attack(0);
+    }
+    expect(Human.board.board.filter((index: string) => index != '')).toEqual(['miss']);
 });
 
 test('player can place correct ship', () => {

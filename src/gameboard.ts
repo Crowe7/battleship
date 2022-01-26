@@ -54,13 +54,11 @@ class Gameboard {
         if(ship.length !== location.length ) {
             return false
         }
-
         for(let i = 0; i < location.length; i++) { // checks if another ship is in the spot
             if(this.board[location[i]] !== '') {
                 return false
             }
         }
-
         if(location[0] % 10 === location[1] % 10 ) { // this is a hard check to test if player cords for vert before checking if horizontal is bad
             return true
         }
@@ -69,6 +67,7 @@ class Gameboard {
         }
         return true;
     }
+    
     #checkHorizontalCords(array: number[]) {
         let firstNumberArray: number[] = [];
 
@@ -85,6 +84,7 @@ class Gameboard {
         }
         return firstNumberArray
     }
+
     takeAttack(location: number) {
         if(this.board[location] === '') {
             this.board[location] = 'miss';

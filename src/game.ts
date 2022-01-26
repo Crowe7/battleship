@@ -1,12 +1,14 @@
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import Gameboard from "./gameboard";
 import Player from "./players";
+
+let whichTurn: number = 1; // sets the starting turn as p1 
+
 
 let Computer: {board: Gameboard, player: Player, cpuPlaceShips: Function, cpuAttack: Function} = {
     board:  new Gameboard,
     player:  new Player("Computer"),
     cpuPlaceShips: () => {
-        Computer.board.placeAllShipsRandomly();
+        Computer.board.placeAllShipsRandomly(); // run this when player board is setup
     },
     cpuAttack: () => {
         try {
@@ -30,7 +32,7 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
             throw new Error (error);
         }
     },
-    humanAttack(location: number) { // put this on opponents board in dom
+    humanAttack(location: number) { 
         try {
             Computer.board.takeAttack(location)
         } catch(error) {
@@ -46,30 +48,50 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
     }
 }
 
-function isPlayerBoardsSetuo(): boolean { // after player places ship check with this and when its true append the event listeners to opponents board?
+function isPlayerBoardsSetup(): boolean { // after player places ship check with this and when its true append the event listeners to opponents board?
     if(Human.board.shipsLeft === 5) {
         return true
     }
     return false
 }
 
-function endGame(): string | boolean {
+function endGame(): string | boolean { // check this after every attack in dom if returns not false pop a modal up with winner
     if(Human.board.checkForWin() === true) {
         return Human.player.name
     }
     if(Computer.board.checkForWin() === true) {
         return Computer.player.name
     }
-
     return false
+}
+
+function attack(location: number) { // use if statment, if returnWhoseturn() is 2 then run attack again to do cpu attack
+    if(returnWhoseTurn() === 1) {
+        try{
+            Human.humanAttack(location)
+            whichTurn++
+        } catch(error) {
+            throw new Error(error)
+        }
+    }
+    else if(returnWhoseTurn() === 2) {
+        Computer.cpuAttack();
+        whichTurn--
+    }
+
+}
+
+function returnWhoseTurn(): number {
+    if(whichTurn === 1) {
+        return 1
+    }
+    else if(whichTurn === 2) {
+        return 2
+    }
 }
 
 
 
-
-
-
-
-export {Computer, Human, endGame}
+export {Computer, Human, endGame, attack, returnWhoseTurn}
 
 
