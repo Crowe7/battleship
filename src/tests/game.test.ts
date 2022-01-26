@@ -40,3 +40,8 @@ test('player can attack Computer', () => {
     Human.humanAttack(0);
     expect(Computer.board.board[0]).toEqual('miss');
 });
+
+test('player can change name', () => {
+    Human.changePlayerName('Jacob');
+    expect(Human.player.name).toEqual('Jacob');
+});

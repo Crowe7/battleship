@@ -1,3 +1,4 @@
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import Gameboard from "./gameboard";
 import Player from "./players";
 
@@ -17,7 +18,7 @@ let Computer: {board: Gameboard, player: Player, cpuPlaceShips: Function, cpuAtt
 
 }
 
-let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: Function} = {
+let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: Function, changePlayerName: Function} = {
     board: new Gameboard,
     player: new Player("Player"),   
     placeShip(cords: number[]) {// these are got from event listener, put this on event listener probably
@@ -35,6 +36,13 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
         } catch(error) {
             throw new Error (error);
         }      
+    },
+
+    changePlayerName(name: string) {
+        if(name === "Computer" || name === '') {
+            throw new Error ('Invalid Name')
+        }
+        Human.player.name = name;
     }
 }
 
