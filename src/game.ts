@@ -38,7 +38,7 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
         }      
     },
 
-    changePlayerName(name: string) {
+    changePlayerName(name: string) { // append this to a name text box on the dom
         if(name === "Computer" || name === '') {
             throw new Error ('Invalid Name')
         }
@@ -46,9 +46,30 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
     }
 }
 
+function isPlayerBoardsSetuo(): boolean { // after player places ship check with this and when its true append the event listeners to opponents board?
+    if(Human.board.shipsLeft === 5) {
+        return true
+    }
+    return false
+}
+
+function endGame(): string | boolean {
+    if(Human.board.checkForWin() === true) {
+        return Human.player.name
+    }
+    if(Computer.board.checkForWin() === true) {
+        return Computer.player.name
+    }
+
+    return false
+}
 
 
 
-export {Computer, Human}
+
+
+
+
+export {Computer, Human, endGame}
 
 

@@ -1,4 +1,4 @@
-import {Computer, Human} from "../game";
+import {Computer, Human, endGame} from "../game";
 import Gameboard from "../gameboard";
 
 beforeEach( () => {
@@ -44,4 +44,9 @@ test('player can attack Computer', () => {
 test('player can change name', () => {
     Human.changePlayerName('Jacob');
     expect(Human.player.name).toEqual('Jacob');
+});
+
+test('game reports winner', () => {
+    Human.placeShip([0,1,2,3,4]);
+    expect(endGame()).toEqual('Computer');
 });

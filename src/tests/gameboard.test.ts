@@ -1,4 +1,3 @@
-import { getNameOfJSDocTypedef } from "typescript";
 import Gameboard from "../gameboard";
 import Ship from "../ships"
 
@@ -37,6 +36,11 @@ describe('Gameboard', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
         expect(gameboard.board.filter((index: string) => index !== '')).toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
+    });
+
+    test('doesnt allow invalid cordinates passed in', () => {
+        let ship = new Ship(2, 'sub');
+        expect( () => {gameboard.placeShip([1,3], ship)}).toThrow(Error);
     });
 
     test('placing ship updates how many are on board', () => {
