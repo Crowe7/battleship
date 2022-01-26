@@ -1,4 +1,11 @@
 import {Computer, Human} from "../game";
+import Gameboard from "../gameboard";
+
+beforeEach( () => {
+    Human.board = new Gameboard
+    Computer.board = new Gameboard
+});
+
 
 test('computer places all ships', () => {
     Computer.cpuPlaceShips();
@@ -16,4 +23,15 @@ test('computer trys attacking until an attack lands', () => {
     }
     Computer.cpuAttack();
     expect(Human.board.board.filter((index: string) => index != 'miss')).toEqual([]);
+});
+
+test('player can place correct ship', () => {
+    Human.placeShip([0,1,2,3,4]);
+    expect(Human.board.board[0].Ship.name).toEqual('Carrier');
+});
+
+test('player can place ships in correct order', () => {
+    Human.placeShip([0,1,2,3,4]);
+    Human.placeShip([10,11,12,13]);
+    expect(Human.board.board[10].Ship.name).toEqual('Battleship');
 });
