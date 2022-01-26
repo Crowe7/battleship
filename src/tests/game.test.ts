@@ -35,3 +35,8 @@ test('player can place ships in correct order', () => {
     Human.placeShip([10,11,12,13]);
     expect(Human.board.board[10].Ship.name).toEqual('Battleship');
 });
+
+test('player can attack Computer', () => {
+    Human.humanAttack(0);
+    expect(Computer.board.board[0]).toEqual('miss');
+});
