@@ -92,6 +92,6 @@ function returnWhoseTurn(): number {
 
 
 
-export {Computer, Human, endGame, attack, returnWhoseTurn}
+export {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup}
 
 

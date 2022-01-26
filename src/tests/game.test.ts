@@ -1,4 +1,4 @@
-import {Computer, Human, endGame, attack, returnWhoseTurn} from "../game";
+import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup} from "../game";
 import Gameboard from "../gameboard";
 
 
@@ -58,4 +58,9 @@ test('player can change name', () => {
 test('game reports winner', () => {
     Human.placeShip([0,1,2,3,4]);
     expect(endGame()).toEqual('Computer');
+});
+
+test('checks if player board is setup', () => {
+    Human.board.placeAllShipsRandomly();
+    expect(isPlayerBoardsSetup()).toBe(true);
 });
