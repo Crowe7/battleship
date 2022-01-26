@@ -40,7 +40,7 @@ describe('Gameboard', () => {
 
     test('doesnt allow invalid cordinates passed in', () => {
         let ship = new Ship(2, 'sub');
-        expect( () => {gameboard.placeShip([1,3], ship)}).toThrow(Error);
+        expect( () => {gameboard.placeShip([9,10], ship)}).toThrow(Error);
     });
 
     test('placing ship updates how many are on board', () => {
