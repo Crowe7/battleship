@@ -44,13 +44,15 @@ class Gameboard {
         if(this.#checkValidPLacement(location, ship) !== true) {
             throw new Error('Invalid Placement!');
         }
-
         for(let i = 0; i < ship.length; i++) {
             this.board[location[i]] = {Ship: ship, position: i+1, isSpotHit: false,};
         }
         this.shipsLeft = this.shipsLeft + 1;
+
+
     }
     #checkValidPLacement(location: number[], ship: ShipInterface) {
+
         if(ship.length !== location.length ) {
             return false
         }
@@ -59,12 +61,20 @@ class Gameboard {
                 return false
             }
         }
+
+        if(this.#checkIfTooCloseToOtherShips(location) === false) {
+            return false
+        }
+
         if(location[0] % 10 === location[1] % 10 ) { // this is a hard check to test if player cords for vert before checking if horizontal is bad
             return true
         }
+
+
         if(this.#checkHorizontalCords(location).length !== 1) {
             return false;
         }
+
         return true;
     }
     
@@ -83,6 +93,64 @@ class Gameboard {
             }
         }
         return firstNumberArray
+    }
+
+    #checkIfTooCloseToOtherShips(location: number[]): boolean { // this is awful in so many ways
+        if(location[0] - location[1] === -1) {
+            if(this.board[location[0] - 1] !== '' ) {
+                if(this.board[location[0] - 1] !== undefined) {
+                    return false
+                }       
+            }
+            for(let i = 0; i < location.length + 2; i++) {
+                if(i === location.length) {
+                    if(this.board[location[i] + 1] !== '' ) {
+                        if(this.board[location[i] + 1] !== undefined) {
+                            return false
+                        }
+                    }
+                }
+                if(this.board[location[i] + 9] !== '' ) {
+                    if(this.board[location[i] + 9] !== undefined) {
+                        return false
+                    }
+                }
+                if(this.board[location[i] - 11] !== '' ) {
+                    if(this.board[location[i] - 11] !== undefined) {
+                        return false
+                    }
+                }
+            }
+        }
+        else {
+
+            if(this.board[location[0] - 10] !== '' ) {
+                if(this.board[location[0] - 10] !== undefined) {
+                    return false
+                }
+            }
+            for(let i = 0; i < location.length + 2; i++) {
+                if(i === location.length) {
+                    console.log(location);
+                    if(this.board[location[i] + 10] !== '' ) {
+                        if(this.board[location[i] + 10] !== undefined) {
+                            return false
+                        }
+                    }
+                }
+                if(this.board[location[i] + 11] !== '' ) {
+                    if(this.board[location[i] + 11] !== undefined) {
+                        return false
+                    }
+                }
+                if(this.board[location[i] - 9] !== '' ) {
+                    if(this.board[location[i] - 9] !== undefined) {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
     }
 
     takeAttack(location: number) {
