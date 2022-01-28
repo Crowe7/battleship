@@ -247,6 +247,10 @@ class Gameboard {
     placeShipRandomly(ship: ShipInterface) {
         try {
             this.placeShip(this.returnValidRandomCords(ship.length, 'random'), ship);
+            if(this.shipsLeft > 5) { // stops overplacing of ships on board
+                console.log(this.shipsLeft);
+                this.shipsLeft = 5;
+            }
 
         } catch(error) {
             this.placeShipRandomly(ship)

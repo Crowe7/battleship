@@ -1,4 +1,4 @@
-import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup} from "../game";
+import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "../game";
 import Gameboard from "../gameboard";
 
 
@@ -39,6 +39,7 @@ test('player can place correct ship', () => {
     expect(Human.board.board[0].Ship.name).toEqual('Carrier');
 });
 
+
 test('player can place ships in correct order', () => {
     Human.placeShip([0,1,2,3,4]);
     Human.placeShip([20,21,22,23]);
@@ -63,4 +64,11 @@ test('game reports winner', () => {
 test('checks if player board is setup', () => {
     Human.board.placeAllShipsRandomly();
     expect(isPlayerBoardsSetup()).toBe(true);
+});
+
+test('can reset game', () => {
+    Human.board.placeAllShipsRandomly();
+    Computer.cpuPlaceShips();
+    resetGame();
+    expect(Human.board.shipsLeft && Computer.board.shipsLeft).toBe(0);
 });

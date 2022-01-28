@@ -90,8 +90,11 @@ function returnWhoseTurn(): number {
     }
 }
 
+function resetGame() {
+
+}
 
 
-export {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup}
+export {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame}
 
 
