@@ -91,7 +91,13 @@ function returnWhoseTurn(): number {
 }
 
 function resetGame() {
+    whichTurn = 1;
 
+    Human.board = new Gameboard;
+    Human.player = new Player("Player");
+
+    Computer.board = new Gameboard;
+    Computer.player = new Player("Computer");
 }
 
 
