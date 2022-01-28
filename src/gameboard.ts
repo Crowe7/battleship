@@ -48,11 +48,23 @@ class Gameboard {
             this.board[location[i]] = {Ship: ship, position: i+1, isSpotHit: false,};
         }
         this.shipsLeft = this.shipsLeft + 1;
-
-
     }
-    #checkValidPLacement(location: number[], ship: ShipInterface) {
 
+    undoLastShipPlace() {
+        this.board.forEach((element: any, i: any, board: any) => {
+            if(element !== '') {
+                if(element.Ship.name === this.ships[this.shipsLeft - 1].name) {
+                    board[i] = '';
+
+                }
+            }
+        });
+        if(this.shipsLeft > 0 ) {
+            this.shipsLeft -= 1;
+        }
+    }
+
+    #checkValidPLacement(location: number[], ship: ShipInterface) {
         if(ship.length !== location.length ) {
             return false
         }
@@ -95,7 +107,7 @@ class Gameboard {
         return firstNumberArray
     }
 
-    #checkIfTooCloseToOtherShips(location: number[]): boolean { // this is awful in so many ways
+    #checkIfTooCloseToOtherShips(location: number[]): boolean { // this is awful in so many ways checks 
         if(location[0] - location[1] === -1) {
             if(this.board[location[0] - 1] !== '' && this.board[location[0] - 1] !== undefined ) {
                 return false
@@ -120,7 +132,6 @@ class Gameboard {
             }
             for(let i = 0; i < location.length + 2; i++) {
                 if(i === location.length) {
-                    console.log(location);
                     if(this.board[location[i] + 10] !== '' && this.board[location[i] + 10] !== undefined ) {
                         return false
                     }

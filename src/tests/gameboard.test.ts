@@ -38,6 +38,21 @@ describe('Gameboard', () => {
         expect(gameboard.board.filter((index: string) => index !== '')).toEqual([{Ship: ship, isSpotHit: false, position: 1}, {Ship: ship, isSpotHit: false, position: 2}]);
     });
 
+    test('can undo last ship placed', () => {
+        let ship = new Ship(2, 'Carrier');
+        gameboard.placeShip([0,1], ship);
+        gameboard.undoLastShipPlace();
+        expect(gameboard.board.filter((index: string) => index !== '')).toEqual([]);
+    });
+
+    test('undoing ship also lowers ships placed counter', () => {
+        let ship = new Ship(2, 'Carrier');
+        gameboard.placeShip([0,1], ship);
+        gameboard.undoLastShipPlace();
+        gameboard.undoLastShipPlace();
+        expect(gameboard.shipsLeft).toBe(0);
+    });
+
     test('doesnt allow invalid cordinates passed in', () => {
         let ship = new Ship(2, 'sub');
         expect( () => {gameboard.placeShip([9,10], ship)}).toThrow(Error);
