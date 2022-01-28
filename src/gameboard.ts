@@ -74,14 +74,9 @@ class Gameboard {
             }
         }
 
-        if(this.#checkIfTooCloseToOtherShips(location) === false) {
-            return false
-        }
-
         if(location[0] % 10 === location[1] % 10 ) { // this is a hard check to test if player cords for vert before checking if horizontal is bad
             return true
         }
-
 
         if(this.#checkHorizontalCords(location).length !== 1) {
             return false;
@@ -105,46 +100,6 @@ class Gameboard {
             }
         }
         return firstNumberArray
-    }
-
-    #checkIfTooCloseToOtherShips(location: number[]): boolean { // this is awful in so many ways checks 
-        if(location[0] - location[1] === -1) {
-            if(this.board[location[0] - 1] !== '' && this.board[location[0] - 1] !== undefined ) {
-                return false
-            }
-            for(let i = 0; i < location.length + 2; i++) {
-                if(i === location.length) {
-                    if(this.board[location[i] + 1] !== '' && this.board[location[i] + 1] !== undefined ) {
-                        return false
-                    }
-                }
-                if(this.board[location[i] + 9] !== '' && this.board[location[i] + 9] !== undefined ) {
-                    return false
-                }
-                if(this.board[location[i] - 11] !== '' && this.board[location[i] - 11] !== undefined ) {
-                    return false
-                }
-            }
-        }
-        else {
-            if(this.board[location[0] - 10] !== '' && this.board[location[0] - 10] !== undefined ) {
-                return false
-            }
-            for(let i = 0; i < location.length + 2; i++) {
-                if(i === location.length) {
-                    if(this.board[location[i] + 10] !== '' && this.board[location[i] + 10] !== undefined ) {
-                        return false
-                    }
-                }
-                if(this.board[location[i] + 11] !== '' && this.board[location[i] + 11] !== undefined ) {
-                        return false
-                }
-                if(this.board[location[i] - 9] !== '' && this.board[location[i] - 9] !== undefined ) {
-                        return false
-                }
-            }
-        }
-        return true
     }
 
     takeAttack(location: number) {

@@ -58,28 +58,6 @@ describe('Gameboard', () => {
         expect( () => {gameboard.placeShip([9,10], ship)}).toThrow(Error);
     });
 
-    test('doesnt allow ship placed horizontally besides another ship', () => {
-        let ship1 = new Ship(2, 'sub');
-        gameboard.placeShip([0,1], ship1);
-        let ship2 = new Ship(2, 'sub'); 
-        expect( () => {gameboard.placeShip([2,3], ship2)}).toThrow(Error);
-    });
-
-    test('doesnt allow ship placed vertically besides another ship', () => {
-        let ship1 = new Ship(2, 'sub');
-        gameboard.placeShip([0,10], ship1);
-        let ship2 = new Ship(2, 'sub'); 
-        expect( () => {gameboard.placeShip([20,30], ship2)}).toThrow(Error);
-    });
-
-    test('doesnt allow ship placed diagnally besides another ship', () => {
-        let ship1 = new Ship(2, 'sub');
-        gameboard.placeShip([0,1], ship1);
-        let ship2 = new Ship(2, 'sub'); 
-        expect( () => {gameboard.placeShip([12,13], ship2)}).toThrow(Error);
-    });
-
-
     test('placing ship updates how many are on board', () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShip([0,1], ship);
