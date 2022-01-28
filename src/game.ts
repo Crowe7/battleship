@@ -3,7 +3,6 @@ import Player from "./players";
 
 let whichTurn: number = 1; // sets the starting turn as p1 
 
-
 let Computer: {board: Gameboard, player: Player, cpuPlaceShips: Function, cpuAttack: Function} = {
     board:  new Gameboard,
     player:  new Player("Computer"),
@@ -78,7 +77,6 @@ function attack(location: number) { // use if statment, if returnWhoseturn() is 
         Computer.cpuAttack();
         whichTurn--
     }
-
 }
 
 function returnWhoseTurn(): number {
@@ -99,7 +97,6 @@ function resetGame() {
     Computer.board = new Gameboard;
     Computer.player = new Player("Computer");
 }
-
 
 export {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame}
 

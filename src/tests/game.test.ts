@@ -1,12 +1,10 @@
 import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "../game";
 import Gameboard from "../gameboard";
 
-
 beforeEach( () => {
     Human.board = new Gameboard
     Computer.board = new Gameboard
 });
-
 
 test('computer places all ships', () => {
     Computer.cpuPlaceShips();
