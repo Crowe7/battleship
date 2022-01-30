@@ -34,7 +34,14 @@ function makeRandomBtn() {
     });
 }
 
-
+function makeUndoBtn() {
+    let undoBtn = document.getElementById('undo');
+    undoBtn.addEventListener('click', () => {
+        Human.board.undoLastShipPlace();
+        changePlaceShipText();
+        renderGameBoard(Human.board, 'start');
+    });
+}
 
 function initStart() {
     makeStartingGrid();
