@@ -31,7 +31,7 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
             throw new Error (error);
         }
     },
-    humanAttack(location: number) { 
+    humanAttack(location: number):string { // set a variable to this and then assign that to the dom so it can report that attack
         try {
             let attackResult: string = Human.player.attackOpponent(location, Computer.board);
             return attackResult;

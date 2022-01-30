@@ -1,9 +1,9 @@
 import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "./game";
 import Gameboard from "./gameboard";
 
-
 initStart();
-
+makeRandomBtn();
+makeUndoBtn();
 
 function makeStartingGrid() {
     let start = document.getElementById('start');
@@ -17,7 +17,21 @@ function makeStartingGrid() {
 
 function changePlaceShipText() {
     let placeShipText = document.getElementById('placeShipText');
-    placeShipText.innerText = `Place Your ${Human.board.ships[Human.board.shipsLeft].name}!`;
+    if(Human.board.shipsLeft === 5) {
+        placeShipText.innerText = 'Click Ready To Begin!';
+    }
+    else {
+        placeShipText.innerText = `Place Your ${Human.board.ships[Human.board.shipsLeft].name}!`;
+    }
+}
+
+function makeRandomBtn() {
+    let randomBtn = document.getElementById('random');
+    randomBtn.addEventListener('click', () => {
+        Human.board.placeShipRandomly(Human.board.ships[Human.board.shipsLeft]);
+        changePlaceShipText();
+        renderGameBoard(Human.board, 'start');
+    });
 }
 
 
@@ -27,11 +41,12 @@ function initStart() {
     changePlaceShipText();
 }
 
+
+
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
 
     for(let i = 0; i < 100; i++) {
-
         if(gameboard.board[i] === '') {
             if(DOMboard.children[i].classList.contains('ship')) {
                 DOMboard.children[i].classList.remove('ship');
