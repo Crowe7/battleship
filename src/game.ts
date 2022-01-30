@@ -33,7 +33,8 @@ let Human: {board: Gameboard, player: Player, placeShip: Function, humanAttack: 
     },
     humanAttack(location: number) { 
         try {
-            Computer.board.takeAttack(location)
+            let attackResult: string = Human.player.attackOpponent(location, Computer.board);
+            return attackResult;
         } catch(error) {
             throw new Error (error);
         }      

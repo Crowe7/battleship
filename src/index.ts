@@ -20,10 +20,7 @@ function changePlaceShipText() {
     placeShipText.innerText = `Place Your ${Human.board.ships[Human.board.shipsLeft].name}!`;
 }
 
-function setStartButtons() { // not done!
-    let undo = document.getElementById('undo');
-    undo.addEventListener('click', Human.board.undoLastShipPlace);
-}
+
 
 function initStart() {
     makeStartingGrid();
@@ -53,6 +50,8 @@ function renderGameBoard(gameboard: Gameboard, grid: string) {
         }
     }
 }
+
+// PUT A SPOT ON THE BOARD THAT HAS TEXT AFTER EVERY ATTACK THAT SHOWS WHAT HAPPENED LAST TURN!
 
 // ON HOVER ADD A CLASS TO GRID THAT COLORS IN THE SPACES IF THEY CHECK OUT PROPERLY IN checkValidPlacement AND REMOVES ALL OTHER INSTANCES OF HOVER CLASS FROM GRID
 

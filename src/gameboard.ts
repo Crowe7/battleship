@@ -115,6 +115,7 @@ class Gameboard {
                     this.#updateBoatCounterWhenSunk(this.board[location].Ship);
                     return this.#reportSunkShip(this.board[location].Ship);
                 }
+                return 'hit';
             }
             else {
                 throw new Error ('invalid attack');

@@ -8,7 +8,8 @@ class Player {
 
     attackOpponent(cordinates: number, gameboard: Gameboard) {
         try {
-            gameboard.takeAttack(cordinates);
+            let attack = gameboard.takeAttack(cordinates);
+            return attack;
 
         } catch(error) {
             throw new Error (error);
