@@ -17,7 +17,50 @@ body {
     justify-content:center;
 }
 
+.grid-and-buttons-wrapper {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+
+.grid-and-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px;
+}
+
+
+.ship-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+.ship-menu-buttons button {
+    font-size: 40px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    padding: 10px;
+}
+
+.start {
+    width: 500px;
+    height: 500px;
+}
+
+.start div {
+    border: 1px solid black;
+}
+
+.grid {
+    display: grid;
+    grid-template:repeat(10, 1fr) / repeat(10, 1fr);
+}
 
 
 
@@ -29,6 +72,7 @@ body {
 .flex-wrapper{
     display: flex;
     flex: 1 0 auto;
+    justify-content: center;
 }
 .footer{
     display: flex;

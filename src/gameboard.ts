@@ -41,7 +41,7 @@ class Gameboard {
         return ships
     }
     placeShip(location: number[], ship: ShipInterface) {
-        if(this.#checkValidPLacement(location, ship) !== true) {
+        if(this.checkValidPLacement(location, ship) !== true) {
             throw new Error('Invalid Placement!');
         }
         for(let i = 0; i < ship.length; i++) {
@@ -64,7 +64,7 @@ class Gameboard {
         }
     }
 
-    #checkValidPLacement(location: number[], ship: ShipInterface) {
+    checkValidPLacement(location: number[], ship: ShipInterface) {
         if(ship.length !== location.length ) {
             return false
         }
