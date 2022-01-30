@@ -116,6 +116,13 @@ describe('Gameboard', () => {
         expect(gameboard.shipsLeft).toBe(0);
     });
 
+    test('can report sunk ship', () => {
+        let ship = new Ship(2, 'sub');
+        gameboard.placeShip([0,1], ship);
+        gameboard.takeAttack(0);
+        expect(gameboard.takeAttack(1)).toEqual('sub has Sunk!');
+    });
+
     test('updates correct number of sunk ships', () => {
         let ship = new Ship(2, 'sub');
         let ship2 = new Ship(3, 'boat');

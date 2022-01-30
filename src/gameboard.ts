@@ -102,7 +102,7 @@ class Gameboard {
         return firstNumberArray
     }
 
-    takeAttack(location: number) {
+    takeAttack(location: number): string {
         if(this.board[location] === '') {
             this.board[location] = 'miss';
             return this.board[location]
@@ -111,7 +111,10 @@ class Gameboard {
             if(this.#checkValidHit(location) === true) {
                 this.board[location].isSpotHit = true;
                 this.board[location].Ship.hitShip(this.board[location].position);   
-                this.#updateAndReportSunkShip(this.board[location].Ship);
+                if(this.#checkIfBoatSunk(this.board[location].Ship) === true) {
+                    this.#updateBoatCounterWhenSunk(this.board[location].Ship);
+                    return this.#reportSunkShip(this.board[location].Ship);
+                }
             }
             else {
                 throw new Error ('invalid attack');
@@ -131,10 +134,8 @@ class Gameboard {
         return true
     }
 
-    #updateAndReportSunkShip(boat:ShipInterface) {
+    #checkIfBoatSunk(boat:ShipInterface) {
         if(boat.isSunk() === true) {
-            this.#reportSunkShip(boat);
-            this.#updateBoatCounterWhenSunk(boat);
             return true;
         }
     } 
