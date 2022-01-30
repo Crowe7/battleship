@@ -1,11 +1,9 @@
 import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "./game";
-let message: string = 'Hello World';
-function log(message: string) {
-    console.log(message);
-    return message;
-}
+import Gameboard from "./gameboard";
+
 
 initStart();
+
 
 function makeStartingGrid() {
     let start = document.getElementById('start');
@@ -22,13 +20,41 @@ function changePlaceShipText() {
     placeShipText.innerText = `Place Your ${Human.board.ships[Human.board.shipsLeft].name}!`;
 }
 
+function setStartButtons() { // not done!
+    let undo = document.getElementById('undo');
+    undo.addEventListener('click', Human.board.undoLastShipPlace);
+}
+
 function initStart() {
     makeStartingGrid();
     changePlaceShipText();
+}
+
+function renderGameBoard(gameboard: Gameboard, grid: string) {
+    let DOMboard = document.getElementById(grid);
+
+    for(let i = 0; i < 100; i++) {
+
+        if(gameboard.board[i] === '') {
+            if(DOMboard.children[i].classList.contains('ship')) {
+                DOMboard.children[i].classList.remove('ship');
+            }
+        }
+        else if(gameboard.board[i] === 'miss') {
+            DOMboard.children[i].classList.add('miss');
+        }
+        else {
+            if(gameboard.board[i].isSpotHit === false) {
+                DOMboard.children[i].classList.add('ship');
+            }
+            else {
+                DOMboard.children[i].classList.add('hit');
+            }
+        }
+    }
 }
 
 // ON HOVER ADD A CLASS TO GRID THAT COLORS IN THE SPACES IF THEY CHECK OUT PROPERLY IN checkValidPlacement AND REMOVES ALL OTHER INSTANCES OF HOVER CLASS FROM GRID
 
 // WHEN YOU CLICK AND PLACE A SHIP JUST SEND THE CORDS TO THE PLACE SHIP FUNCTION! AND THEN RUN A SEPERATE FUNTION THAT UPDATES THE DOM GRID RIGHT AFTER!
 
-export {log};

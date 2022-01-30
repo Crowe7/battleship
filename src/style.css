@@ -62,7 +62,17 @@ body {
     grid-template:repeat(10, 1fr) / repeat(10, 1fr);
 }
 
+.ship {
+    background-color: skyblue;
+}
 
+.hit {
+    background-color: tomato !important;
+}
+
+.miss {
+    background-color: lightgreen;
+}
 
 .content-wrapper{
     display: flex;

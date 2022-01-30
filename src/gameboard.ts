@@ -111,7 +111,7 @@ class Gameboard {
             if(this.#checkValidHit(location) === true) {
                 this.board[location].isSpotHit = true;
                 this.board[location].Ship.hitShip(this.board[location].position);   
-                this.#updateBoatCounterWhenSunk(this.board[location].Ship);
+                this.#updateAndReportSunkShip(this.board[location].Ship);
             }
             else {
                 throw new Error ('invalid attack');
@@ -131,11 +131,20 @@ class Gameboard {
         return true
     }
 
-    #updateBoatCounterWhenSunk(boat: ShipInterface) : boolean {
+    #updateAndReportSunkShip(boat:ShipInterface) {
         if(boat.isSunk() === true) {
-            this.shipsLeft = this.shipsLeft - 1;
-            return true
+            this.#reportSunkShip(boat);
+            this.#updateBoatCounterWhenSunk(boat);
+            return true;
         }
+    } 
+
+    #reportSunkShip(boat:ShipInterface) : string {
+            return `${boat.name} has Sunk!`
+    }
+
+    #updateBoatCounterWhenSunk(boat: ShipInterface) {
+            this.shipsLeft = this.shipsLeft - 1;
     }
 
     checkForWin(): boolean {
