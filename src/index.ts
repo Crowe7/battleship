@@ -73,9 +73,11 @@ function initStartBtns() {
 function makeRandomBtn() {
     let randomBtn = document.getElementById('random');
     randomBtn.addEventListener('click', () => {
-        Human.board.placeShipRandomly(Human.board.ships[Human.board.shipsLeft]);
-        changePlaceShipText();
-        renderGameBoard(Human.board, 'start');
+        if(Human.board.shipsLeft < 5) {
+            Human.board.placeShipRandomly(Human.board.ships[Human.board.shipsLeft]);
+            changePlaceShipText();
+            renderGameBoard(Human.board, 'start');
+        }
     });
 }
 
