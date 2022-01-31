@@ -180,6 +180,23 @@ class Gameboard {
         }
     }
     
+
+    generateCordsFromStartingPosition(start: number, orientation: string, ship: ShipInterface): number[] {
+        let cords: number[] = [];
+        if(orientation === 'X') {
+            for(let i = 0; i < ship.length; i++) {
+                cords.push(start + i);
+            }
+            return cords
+        }
+        else {
+            for(let i = 0; i < ship.length; i++) {
+                cords.push(start + (i * 10));
+            }
+            return cords
+        }
+    }
+
     #generateLegalHorizontalCords(length: number) {
         let cords: number[] = [];
         let randomVertical: number = Math.floor(Math.random() * 10) * 10; 

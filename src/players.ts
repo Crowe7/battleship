@@ -6,7 +6,7 @@ class Player {
         this.name = name
     }
 
-    attackOpponent(cordinates: number, gameboard: Gameboard) {
+    attackOpponent(cordinates: number, gameboard: Gameboard):string {
         try {
             let attack = gameboard.takeAttack(cordinates);
             return attack;

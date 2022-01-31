@@ -204,6 +204,17 @@ describe('Gameboard', () => {
         expect(getFirstNumbers(gameboard.returnValidRandomCords(ship.length, 'horizontal')).length).toBe(1);
     });
 
+    test('can generate horizontal cords based on starting number', () => {
+        let ship = new Ship(2, 'sub');
+        expect(gameboard.generateCordsFromStartingPosition(7, 'X', ship)).toEqual([7,8]);
+    });
+
+    test('can generate horizontal cords based on starting number', () => {
+        let ship = new Ship(3, 'sub');
+        expect(gameboard.generateCordsFromStartingPosition(67, 'Y', ship)).toEqual([67,77,87]);
+    });
+
+
     test('can place ship randomly' , () => {
         let ship = new Ship(2, 'sub');
         gameboard.placeShipRandomly(ship);

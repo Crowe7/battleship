@@ -1,9 +1,10 @@
 import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "./game";
 import Gameboard from "./gameboard";
 
+let axis: string = 'X'; 
+
 initStart();
-makeRandomBtn();
-makeUndoBtn();
+
 
 function makeStartingGrid() {
     let start = document.getElementById('start');
@@ -25,6 +26,12 @@ function changePlaceShipText() {
     }
 }
 
+function initStartBtns() {
+    makeRandomBtn();
+    makeUndoBtn();
+    makeRotationBtn();
+}
+
 function makeRandomBtn() {
     let randomBtn = document.getElementById('random');
     randomBtn.addEventListener('click', () => {
@@ -43,9 +50,24 @@ function makeUndoBtn() {
     });
 }
 
+function makeRotationBtn() {
+    let rotationBtn = document.getElementById('rotation');
+    rotationBtn.addEventListener('click', changeAxis);
+}
+
+function changeAxis() {
+    if(axis === 'X') {
+        axis = 'Y';
+    }
+    else {
+        axis = 'X';
+    }
+}
+
 function initStart() {
     makeStartingGrid();
     changePlaceShipText();
+    initStartBtns();
 }
 
 
