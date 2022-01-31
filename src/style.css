@@ -74,6 +74,12 @@ body {
     background-color: lightgreen;
 }
 
+
+.ship-hover {
+    background-color: lightgreen;
+}
+
+
 .disabled:hover {
     cursor: not-allowed;
 }

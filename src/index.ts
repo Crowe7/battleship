@@ -11,11 +11,49 @@ function makeStartingGrid() {
     for(let i = 0; i < 100; i++) {
         let gridSpace = document.createElement('div');
         gridSpace.setAttribute('id', i.toString());
+
+        gridSpace.addEventListener('mouseover', () => {
+            showShipPlacementOnHover(gridSpace.id);
+        });
+        gridSpace.addEventListener('mouseout', clearHoverStyles);
+
         start.appendChild(gridSpace);
 
     }
 }
 
+function getHoverCords(hoverID: string) {
+    let cords:number[] = Human.board.generateCordsFromStartingPosition(parseInt(hoverID), axis, Human.board.ships[Human.board.shipsLeft]);
+    console.log(cords);
+    return cords
+}
+function showShipPlacementOnHover(hoverID: string) {
+    let grid = document.getElementById('start').children;
+    let cords:number[] = getHoverCords(hoverID);
+    if(Human.board.checkValidPLacement(getHoverCords(hoverID), Human.board.ships[Human.board.shipsLeft]) === true) {
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < cords.length; j++) {
+                if(parseInt(grid[i].id) === cords[j]) {
+                    grid[i].classList.add('ship-hover');
+                }
+            }
+        }
+    }
+    else {
+        grid[parseInt(hoverID)].classList.add('disabled');
+    }
+}
+function clearHoverStyles() {
+    let grid = document.getElementById('start').children;
+    for(let i = 0; i < grid.length; i++) {
+        if(grid[i].classList.contains('ship-hover')) {
+            grid[i].classList.remove('ship-hover');
+        }
+        if(grid[i].classList.contains('disabled')) {
+            grid[i].classList.remove('disabled');
+        }
+    }
+}
 function changePlaceShipText() {
     let placeShipText = document.getElementById('placeShipText');
     if(Human.board.shipsLeft === 5) {
