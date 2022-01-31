@@ -15,7 +15,14 @@ function makeStartingGrid() {
         gridSpace.addEventListener('mouseover', () => {
             showShipPlacementOnHover(gridSpace.id);
         });
+
         gridSpace.addEventListener('mouseout', clearHoverStyles);
+
+        gridSpace.addEventListener('click', () => {
+            placeHoveredShip(gridSpace.id);
+            renderGameBoard(Human.board, 'start');
+            changePlaceShipText();
+        });
 
         start.appendChild(gridSpace);
 
@@ -27,10 +34,20 @@ function getHoverCords(hoverID: string) {
     console.log(cords);
     return cords
 }
+
+function placeHoveredShip(hoverID: string) {
+    let cords:number[] = getHoverCords(hoverID);
+    try {
+        Human.placeShip(cords);
+    } catch(error) {
+        throw new Error(error);
+    }
+}
+
 function showShipPlacementOnHover(hoverID: string) {
     let grid = document.getElementById('start').children;
     let cords:number[] = getHoverCords(hoverID);
-    if(Human.board.checkValidPLacement(getHoverCords(hoverID), Human.board.ships[Human.board.shipsLeft]) === true) {
+    if(Human.board.checkValidPLacement(cords, Human.board.ships[Human.board.shipsLeft]) === true) {
         for(let i = 0; i < grid.length; i++) {
             for(let j = 0; j < cords.length; j++) {
                 if(parseInt(grid[i].id) === cords[j]) {
