@@ -5,6 +5,38 @@ let axis: string = 'X';
 
 initStart();
 
+function initStart() {
+    initStartingHTML();
+    makeStartingGrid();
+    changePlaceShipText();
+    initStartBtns();
+}
+
+function initStartBtns() {
+    makeRandomBtn();
+    makeUndoBtn();
+    makeRotationBtn();
+}
+
+function initStartingHTML() {
+     let content = document.getElementById('content');
+
+     content.innerHTML = `
+        <div class="grid-and-buttons-wrapper">
+        <h1 id="placeShipText">Place Your Ship</h1>
+        <div class="grid-and-buttons">
+            <div id="start" class="start grid">
+
+            </div>
+            <div class="ship-menu-buttons">
+                <button id="undo">Undo</button>
+                <button id="rotation">Rotation</button>
+                <button id="random">Random</button>
+                <button id="ready">Ready</button>
+            </div>
+        </div>
+    </div>`;
+}
 
 function makeStartingGrid() {
     let start = document.getElementById('start');
@@ -81,11 +113,7 @@ function changePlaceShipText() {
     }
 }
 
-function initStartBtns() {
-    makeRandomBtn();
-    makeUndoBtn();
-    makeRotationBtn();
-}
+
 
 function makeRandomBtn() {
     let randomBtn = document.getElementById('random');
@@ -121,11 +149,7 @@ function changeAxis() {
     }
 }
 
-function initStart() {
-    makeStartingGrid();
-    changePlaceShipText();
-    initStartBtns();
-}
+
 
 
 
