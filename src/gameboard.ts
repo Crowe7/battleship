@@ -87,7 +87,14 @@ class Gameboard {
     
     #checkHorizontalCords(array: number[]) {
         let firstNumberArray: number[] = [];
-
+        for(let i = 0; i < array.length; i ++) {
+                if(array[0] < 10) {
+                    if(array[0] < 10 && array[i] > 9) {
+                        firstNumberArray.push(0,1);
+                        return firstNumberArray
+                    }
+                }
+        }
         if(array[0] < 10 && array[1] < 10) {
             firstNumberArray.push(0);
             return firstNumberArray;
