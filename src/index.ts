@@ -30,7 +30,9 @@ function makeGrid(eventListeners: Function, appendLocation: string) {
 
 function startingGridEventlistners(gridSpace: HTMLElement) {
     gridSpace.addEventListener('mouseover', () => {
-        showShipPlacementOnHover(gridSpace.id);
+        if(isPlayerBoardsSetup() === false) {
+            showShipPlacementOnHover(gridSpace.id);
+        }
     });
 
     gridSpace.addEventListener('mouseout', clearHoverStyles);
