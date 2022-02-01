@@ -3,7 +3,7 @@ import Gameboard from "./gameboard";
 
 let axis: string = 'X'; 
 
- initStart();
+ // initStart();
 function initStart() {
     initStartingHTML();
     makeGrid(startingGridEventlistners, 'start');
@@ -195,7 +195,7 @@ function renderGameBoard(gameboard: Gameboard, grid: string) {
         else if(gameboard.board[i] === 'miss') {
             DOMboard.children[i].classList.add('miss');
         }
-        else {
+        else { // might need to set this to not show ship if is computer player
             if(gameboard.board[i].isSpotHit === false) {
                 DOMboard.children[i].classList.add('ship');
             }
