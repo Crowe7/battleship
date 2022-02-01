@@ -3,11 +3,10 @@ import Gameboard from "./gameboard";
 
 let axis: string = 'X'; 
 
-initStart();
-
+ initStart();
 function initStart() {
     initStartingHTML();
-    makeStartingGrid();
+    makeGrid(startingGridEventlistners, 'start');
     changePlaceShipText();
     initStartBtns();
 }
@@ -17,6 +16,36 @@ function initStartBtns() {
     makeUndoBtn();
     makeRotationBtn();
 }
+
+function makeGrid(eventListeners: Function, appendLocation: string) {
+    let start = document.getElementById(appendLocation);
+    for(let i = 0; i < 100; i++) {
+        let gridSpace = document.createElement('div');
+        gridSpace.setAttribute('id', i.toString());
+        eventListeners(gridSpace);
+        start.appendChild(gridSpace);
+    }
+
+}
+
+function startingGridEventlistners(gridSpace: HTMLElement) {
+    gridSpace.addEventListener('mouseover', () => {
+        showShipPlacementOnHover(gridSpace.id);
+    });
+
+    gridSpace.addEventListener('mouseout', clearHoverStyles);
+
+    gridSpace.addEventListener('click', () => {
+        placeHoveredShip(gridSpace.id);
+        renderGameBoard(Human.board, 'start');
+        changePlaceShipText();
+        if(isPlayerBoardsSetup() === true) {
+            makeReadybtn();
+        }
+    });
+
+}
+
 
 function initStartingHTML() {
      let content = document.getElementById('content');
@@ -37,35 +66,8 @@ function initStartingHTML() {
     </div>`;
 }
 
-function makeStartingGrid() {
-    let start = document.getElementById('start');
-    for(let i = 0; i < 100; i++) {
-        let gridSpace = document.createElement('div');
-        gridSpace.setAttribute('id', i.toString());
-
-        gridSpace.addEventListener('mouseover', () => {
-            showShipPlacementOnHover(gridSpace.id);
-        });
-
-        gridSpace.addEventListener('mouseout', clearHoverStyles);
-
-        gridSpace.addEventListener('click', () => {
-            placeHoveredShip(gridSpace.id);
-            renderGameBoard(Human.board, 'start');
-            changePlaceShipText();
-            if(isPlayerBoardsSetup() === true) {
-                makeReadybtn();
-            }
-        });
-
-        start.appendChild(gridSpace);
-
-    }
-}
-
 function getHoverCords(hoverID: string) {
     let cords:number[] = Human.board.generateCordsFromStartingPosition(parseInt(hoverID), axis, Human.board.ships[Human.board.shipsLeft]);
-    console.log(cords);
     return cords
 }
 
@@ -176,6 +178,7 @@ function clearDOM() {
     let content = document.getElementById('content');
     content.innerHTML = '';
 }
+
 
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
