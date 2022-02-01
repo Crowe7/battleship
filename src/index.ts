@@ -163,10 +163,19 @@ function makeReadybtn() {
     readyBtn.setAttribute('id', 'ready');
     readyBtn.innerText = 'Ready';
 
+    readyBtn.addEventListener('click', () => {
+        clearDOM();
+        // put the load function here for game dom
+    });
+
     let btnContainer = document.getElementById('btnContainer');
     btnContainer.appendChild(readyBtn);
 }
 
+function clearDOM() {
+    let content = document.getElementById('content');
+    content.innerHTML = '';
+}
 
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
