@@ -3,7 +3,7 @@ import Gameboard from "./gameboard";
 
 let axis: string = 'X'; 
 
- // initStart();
+initStart();
 function initStart() {
     initStartingHTML();
     makeGrid(startingGridEventlistners, 'start');
@@ -169,7 +169,8 @@ function makeReadybtn() {
 
     readyBtn.addEventListener('click', () => {
         clearDOM();
-        // put the load function here for game dom
+        makeGameplayDOM();
+        // put the abouve function in an init gameplay function wrapper 
     });
 
     let btnContainer = document.getElementById('btnContainer');
@@ -181,7 +182,27 @@ function clearDOM() {
     content.innerHTML = '';
 }
 
+function makeGameplayDOM() {
+    let content = document.getElementById('content');
+    content.innerHTML = 
+    `<div class="game-box">
+    <h1>This shows status of your last attack!</h1>
+    <div class="grids-and-text">
+        <div class="gameplay-grid">
+            <div id="playerGrid" class="grid start">
 
+            </div>
+            <h2>Player ships remaining: 0</h2>
+        </div>
+        <div class="gameplay-grid">
+            <div id="computerGrid" class="grid start">
+
+            </div>
+            <h2>Computer ships remaining: 0</h2>
+        </div>
+    </div>
+</div>`;
+}
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
