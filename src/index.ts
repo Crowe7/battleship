@@ -28,11 +28,10 @@ function initStartingHTML() {
             <div id="start" class="start grid">
 
             </div>
-            <div class="ship-menu-buttons">
+            <div id="btnContainer" class="ship-menu-buttons">
                 <button id="undo">Undo</button>
                 <button id="rotation">Rotation</button>
                 <button id="random">Random</button>
-                <button id="ready">Ready</button>
             </div>
         </div>
     </div>`;
@@ -54,6 +53,9 @@ function makeStartingGrid() {
             placeHoveredShip(gridSpace.id);
             renderGameBoard(Human.board, 'start');
             changePlaceShipText();
+            if(isPlayerBoardsSetup() === true) {
+                makeReadybtn();
+            }
         });
 
         start.appendChild(gridSpace);
@@ -122,6 +124,9 @@ function makeRandomBtn() {
             Human.board.placeShipRandomly(Human.board.ships[Human.board.shipsLeft]);
             changePlaceShipText();
             renderGameBoard(Human.board, 'start');
+            if(isPlayerBoardsSetup() === true) {
+                makeReadybtn();
+            }
         }
     });
 }
@@ -129,6 +134,10 @@ function makeRandomBtn() {
 function makeUndoBtn() {
     let undoBtn = document.getElementById('undo');
     undoBtn.addEventListener('click', () => {
+        if(isPlayerBoardsSetup() === true) {
+            let readyBtn = document.getElementById('ready');
+            readyBtn.remove();
+        }
         Human.board.undoLastShipPlace();
         changePlaceShipText();
         renderGameBoard(Human.board, 'start');
@@ -149,7 +158,14 @@ function changeAxis() {
     }
 }
 
+function makeReadybtn() {
+    let readyBtn = document.createElement('button');
+    readyBtn.setAttribute('id', 'ready');
+    readyBtn.innerText = 'Ready';
 
+    let btnContainer = document.getElementById('btnContainer');
+    btnContainer.appendChild(readyBtn);
+}
 
 
 
