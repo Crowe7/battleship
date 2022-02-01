@@ -105,7 +105,7 @@ function clearHoverStyles() {
 }
 function changePlaceShipText() {
     let placeShipText = document.getElementById('placeShipText');
-    if(Human.board.shipsLeft === 5) {
+    if(isPlayerBoardsSetup() === true) {
         placeShipText.innerText = 'Click Ready To Begin!';
     }
     else {
@@ -118,7 +118,7 @@ function changePlaceShipText() {
 function makeRandomBtn() {
     let randomBtn = document.getElementById('random');
     randomBtn.addEventListener('click', () => {
-        if(Human.board.shipsLeft < 5) {
+        if(isPlayerBoardsSetup() === false) {
             Human.board.placeShipRandomly(Human.board.ships[Human.board.shipsLeft]);
             changePlaceShipText();
             renderGameBoard(Human.board, 'start');
