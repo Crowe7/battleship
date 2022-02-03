@@ -183,6 +183,7 @@ function makeReadybtn() {
 function initGameplay() {
     makePlayerGameBoard();
     makeComputerGameBoard();
+    updateRemainingShipsDisplay();
 }
 
 function clearDOM() {
@@ -200,16 +201,23 @@ function makeGameplayDOM() {
             <div id="playerGrid" class="grid start">
 
             </div>
-            <h2>Player ships remaining: 0</h2>
+            <h2 id="pRemaining">Player ships remaining: 0</h2>
         </div>
         <div class="gameplay-grid">
             <div id="computerGrid" class="grid start">
 
             </div>
-            <h2>Computer ships remaining: 0</h2>
+            <h2 id="cRemaining">Computer ships remaining: 0</h2>
         </div>
     </div>
 </div>`;
+}
+function updateRemainingShipsDisplay() {
+    let playerShipsRemaining = document.getElementById('pRemaining');
+    let computerShipsRemaining = document.getElementById('cRemaining');
+
+    playerShipsRemaining.innerText = `Player ships remaining: ${Human.board.shipsLeft}`;
+    computerShipsRemaining.innerText = `Computer ships remaining: ${Computer.board.shipsLeft}`;
 }
 
 function makePlayerGameBoard() {
