@@ -4,6 +4,10 @@ module.exports = {
   mode: 'development',  
   entry: {
     index: './src/index.ts',
+    gameboard: './src/gameboard.ts',
+    game: './src/game.ts',
+    players: './src/players.ts',
+    ships: './src/ships.ts',
   },
   devtool: 'inline-source-map',
   output: {
