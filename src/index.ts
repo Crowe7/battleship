@@ -237,12 +237,27 @@ function makePlayerGameBoard() {
 
  function computerBoardEvents(computerGrid: HTMLElement) {
     computerGrid.addEventListener('mouseover', () => {
-        computerGrid.classList.add('ship-hover');
+        computerGrid.classList.add('hover');
     });
     computerGrid.addEventListener('mouseout', () => {
-        computerGrid.classList.remove('ship-hover');
+        computerGrid.classList.remove('hover');
+    });
+
+    computerGrid.addEventListener('click', () => {
+        computerBoardAttacks(computerGrid.id);
+
+        renderGameBoard(Human.board, 'playerGrid');
+        renderGameBoard(Computer.board, 'computerGrid');
+        updateRemainingShipsDisplay();
     });
  }
+
+ function computerBoardAttacks(computerGridID: string) {
+    attack(parseInt(computerGridID));
+    if(returnWhoseTurn() === 2) {
+        attack(0);
+    }
+ } 
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
@@ -256,7 +271,7 @@ function renderGameBoard(gameboard: Gameboard, grid: string) {
         else if(gameboard.board[i] === 'miss') {
             DOMboard.children[i].classList.add('miss');
         }
-        else { // might need to set this to not show ship if is computer player
+        else { 
             if(gameboard.board[i].isSpotHit === false) {
                 if(DOMboard.id === 'playerGrid' || DOMboard.id === 'start') { // only shows ship if its on a players grid or starting grid
                     DOMboard.children[i].classList.add('ship');

@@ -103,7 +103,11 @@ body {
 }
 
 .miss {
-    background-color: lightgreen;
+    background-color: lightgreen !important;
+}
+
+.hover {
+    background-color: lightgray;
 }
 
 
