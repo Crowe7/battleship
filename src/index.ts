@@ -35,7 +35,9 @@ function startingGridEventlistners(gridSpace: HTMLElement) {
         }
     });
 
-    gridSpace.addEventListener('mouseout', clearHoverStyles);
+    gridSpace.addEventListener('mouseout', () => {
+        clearHoverStyles('start');
+    });
 
     gridSpace.addEventListener('click', () => {
         placeHoveredShip(gridSpace.id);
@@ -98,8 +100,8 @@ function showShipPlacementOnHover(hoverID: string) {
         grid[parseInt(hoverID)].classList.add('disabled');
     }
 }
-function clearHoverStyles() {
-    let grid = document.getElementById('start').children;
+function clearHoverStyles(gridID: string) {
+    let grid = document.getElementById(gridID).children;
     for(let i = 0; i < grid.length; i++) {
         if(grid[i].classList.contains('ship-hover')) {
             grid[i].classList.remove('ship-hover');
@@ -216,7 +218,7 @@ function makePlayerGameBoard() {
 }
 
  function playerBoardEvents() {
-
+    // make an on hover affect for somthing maybe?
  }
 
  function makeComputerGameBoard() {
@@ -225,8 +227,13 @@ function makePlayerGameBoard() {
     renderGameBoard(Computer.board, 'computerGrid');
  }
 
- function computerBoardEvents() {
-
+ function computerBoardEvents(computerGrid: HTMLElement) {
+    computerGrid.addEventListener('mouseover', () => {
+        computerGrid.classList.add('ship-hover');
+    });
+    computerGrid.addEventListener('mouseout', () => {
+        computerGrid.classList.remove('ship-hover');
+    });
  }
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
