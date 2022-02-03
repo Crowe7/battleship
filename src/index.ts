@@ -170,11 +170,17 @@ function makeReadybtn() {
     readyBtn.addEventListener('click', () => {
         clearDOM();
         makeGameplayDOM();
+        initGameplay();
         // put the abouve function in an init gameplay function wrapper 
     });
 
     let btnContainer = document.getElementById('btnContainer');
     btnContainer.appendChild(readyBtn);
+}
+
+function initGameplay() {
+    makePlayerGameBoard();
+    makeComputerGameBoard();
 }
 
 function clearDOM() {
@@ -204,6 +210,25 @@ function makeGameplayDOM() {
 </div>`;
 }
 
+function makePlayerGameBoard() {
+    makeGrid(playerBoardEvents, 'playerGrid');
+    renderGameBoard(Human.board, 'playerGrid');
+}
+
+ function playerBoardEvents() {
+
+ }
+
+ function makeComputerGameBoard() {
+    Computer.cpuPlaceShips();
+    makeGrid(computerBoardEvents, 'computerGrid');
+    renderGameBoard(Computer.board, 'computerGrid');
+ }
+
+ function computerBoardEvents() {
+
+ }
+
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
 
@@ -218,7 +243,9 @@ function renderGameBoard(gameboard: Gameboard, grid: string) {
         }
         else { // might need to set this to not show ship if is computer player
             if(gameboard.board[i].isSpotHit === false) {
-                DOMboard.children[i].classList.add('ship');
+                if(DOMboard.id === 'playerGrid' || DOMboard.id === 'start') { // only shows ship if its on a players grid or starting grid
+                    DOMboard.children[i].classList.add('ship');
+                }
             }
             else {
                 DOMboard.children[i].classList.add('hit');
