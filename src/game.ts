@@ -68,8 +68,9 @@ function endGame(): string | boolean { // check this after every attack in dom i
 function attack(location: number) { // use if statment, if returnWhoseturn() is 2 then run attack again to do cpu attack
     if(returnWhoseTurn() === 1) {
         try{
-            Human.humanAttack(location)
+            let attackResult = Human.humanAttack(location);
             whichTurn++
+            return attackResult;
         } catch(error) {
             throw new Error(error)
         }

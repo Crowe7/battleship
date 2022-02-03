@@ -195,7 +195,7 @@ function makeGameplayDOM() {
     let content = document.getElementById('content');
     content.innerHTML = 
     `<div class="game-box">
-    <h1>This shows status of your last attack!</h1>
+    <h1 id="lastAttack">This shows status of your last attack!</h1>
     <div class="grids-and-text">
         <div class="gameplay-grid">
             <div id="playerGrid" class="grid start">
@@ -253,11 +253,23 @@ function makePlayerGameBoard() {
  }
 
  function computerBoardAttacks(computerGridID: string) {
-    attack(parseInt(computerGridID));
+    let attackResult = attack(parseInt(computerGridID));
+    updateLastAttack(attackResult);
     if(returnWhoseTurn() === 2) {
         attack(0);
     }
  } 
+
+function updateLastAttack(result: string) {
+    let lastAttack = document.getElementById('lastAttack');
+
+    if(result === 'miss' || result === 'hit') {
+        lastAttack.innerText = `Your last attack was a ${result}`;
+    }
+    else {
+        lastAttack.innerText = ` the ${Computer.player.name}'s ${result}`;
+    }
+} 
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
