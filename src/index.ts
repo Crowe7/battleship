@@ -1,5 +1,6 @@
 import {Computer, Human, endGame, attack, returnWhoseTurn, isPlayerBoardsSetup, resetGame} from "./game";
 import Gameboard from "./gameboard";
+import './style.css';
 
 let axis: string = 'X'; 
 
