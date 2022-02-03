@@ -57,10 +57,10 @@ function isPlayerBoardsSetup(): boolean { // after player places ship check with
 
 function endGame(): string | boolean { // check this after every attack in dom if returns not false pop a modal up with winner
     if(Human.board.checkForWin() === true) {
-        return Human.player.name
+        return Computer.player.name
     }
     if(Computer.board.checkForWin() === true) {
-        return Computer.player.name
+        return Human.player.name
     }
     return false
 }

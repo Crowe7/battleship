@@ -255,8 +255,10 @@ function makePlayerGameBoard() {
  function computerBoardAttacks(computerGridID: string) {
     let attackResult = attack(parseInt(computerGridID));
     updateLastAttack(attackResult);
-    if(returnWhoseTurn() === 2) {
+    endGameDOM();
+    if(returnWhoseTurn() === 2 && endGame() === false) {
         attack(0);
+        endGameDOM();
     }
  } 
 
@@ -267,9 +269,27 @@ function updateLastAttack(result: string) {
         lastAttack.innerText = `Your last attack was a ${result}`;
     }
     else {
-        lastAttack.innerText = ` the ${Computer.player.name}'s ${result}`;
+        lastAttack.innerText = `the ${Computer.player.name}'s ${result}`;
     }
 } 
+
+function endGameDOM() {
+    if(endGame() !== false) {
+        let modal = document.getElementById('modalID');
+        modal.style.display = 'block';
+
+        let winner = document.getElementById('winner');
+        winner.innerText = `${endGame()} Wins!`;
+
+        let reset = document.getElementById('reset');
+        reset.addEventListener('click',  () => {
+            resetGame();
+            initStart();
+            modal.style.display = 'none';
+        });
+
+    }
+}
 
 function renderGameBoard(gameboard: Gameboard, grid: string) {
     let DOMboard = document.getElementById(grid);
