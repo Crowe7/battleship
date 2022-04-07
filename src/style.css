@@ -233,9 +233,6 @@ body {
     #lastAttack {
         font-size: 22px;
     }
-    .gameplay-grid {
-
-    }
     .grids-and-text {
         flex-direction: column;
     }
